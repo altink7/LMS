@@ -56,7 +56,9 @@ public abstract class Delivery implements Comparable<Delivery>{
 
 	public boolean addGoods(Item item){
 		if(!isAssigned()&&!isCollected()&&!isDelivered()){
-			goods = new HashSet<Item>();
+			if(goods==null) {
+				goods = new HashSet<Item>();
+			}
 			goods.add(item);
 			return true;
 		}
@@ -113,11 +115,12 @@ public abstract class Delivery implements Comparable<Delivery>{
 	}
 
 	protected float totalMass(){
-		float totalWeight=0;
+		float totalWeight=-1;
 		if(goods!=null) {
 			for (Item good : goods) {
 				totalWeight += good.totalMass();
 			}
+			totalWeight++;
 		}
 		return totalWeight;
 
